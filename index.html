@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Brandt Orçamentos</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- PAINEL DE EDIÇÃO -->
+        <div class="painel">
+
+            <h2>Novo Orçamento</h2>
+
+            <label>Cliente</label>
+            <input type="text" id="cliente" placeholder="Nome do cliente">
+
+            <label>Veículo</label>
+            <input type="text" id="veiculo" placeholder="Modelo do veículo">
+
+            <label>Observações</label>
+            <textarea id="observacoes" placeholder="Observações do orçamento"></textarea>
+
+            <h3>Serviços</h3>
+
+            <div id="servicos-container"></div>
+
+            <button onclick="baixarPNG()">
+                Baixar PNG
+            </button>
+
+        </div>
+
+        <!-- PRÉ-VISUALIZAÇÃO -->
+        <div class="preview-area">
+
+            <div id="orcamento">
+
+                <!-- TOPO -->
+                <div class="topo">
+
+                    <img
+                        src="logobrandt.png"
+                        alt="Brandt"
+                        class="logo">
+
+                    <h1 class=" titulo-orcamento ">
+                        ORÇAMENTO
+                    </h1>
+
+                </div>
+
+                <!-- DADOS CLIENTE -->
+                <div class="dados-cliente">
+
+                    <div>
+                        <strong>Cliente</strong>
+                        <p id="previewCliente">---</p>
+                    </div>
+
+                    <div>
+                        <strong>Veículo</strong>
+                        <p id="previewVeiculo">---</p>
+                    </div>
+
+                    <div>
+                        <strong>Data</strong>
+                        <p id="previewData">--/--/----</p>
+                    </div>
+
+                </div>
+
+                <!-- SERVIÇOS -->
+                <div id="listaServicos">
+
+                </div>
+
+                <!-- TOTAL -->
+                <div class="total-box">
+
+                    <span>TOTAL</span>
+
+                    <span id="valorTotal">
+                        R$ 0,00
+                    </span>
+
+                </div>
+
+                <!-- OBSERVAÇÕES -->
+                <div class="observacoes">
+
+                    <h3>Observações</h3>
+
+                    <p id="previewObservacoes">
+                        Nenhuma observação.
+                    </p>
+
+                </div>
+
+                <!-- RODAPÉ -->
+                <div class="rodape">
+
+                    <p>
+                       📞 WhatsApp: (47) 98443-5266
+                    </p>
+
+                    <p>
+                       📍 Bananal do Sul - Guaramirim/SC
+                    </p>
+
+                    <p>
+                        Brandt Estética Automotiva
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
