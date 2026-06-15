@@ -369,7 +369,7 @@ function renderizarHistorico() {
 
                 <strong>
                     #${String(item.numero)
-                        .padStart(4, "0")}
+                .padStart(4, "0")}
                     - ${item.cliente}
                 </strong>
 
@@ -389,10 +389,53 @@ function renderizarHistorico() {
                     R$ ${item.total.toFixed(2)}
                 </small>
 
+                <div class="acoes-historico">
+
+    <button
+        class="btn-excluir"
+        onclick="excluirOrcamento(${item.numero})">
+
+        🗑 Excluir
+
+    </button>
+
+</div>
+
+
+
+
+
             </div>
 
         `;
 
     });
+
+}
+
+/* =========================
+   EXCLUIR ORÇAMENTOS   
+========================= */
+
+function excluirOrcamento(numero) {
+
+    const confirmar = confirm(
+        `Deseja excluir o orçamento #${String(numero).padStart(4, "0")} ?`
+    );
+
+    if (!confirmar) return;
+
+    let historico = obterHistorico();
+
+    historico = historico.filter(item =>
+        item.numero !== numero
+    );
+
+    localStorage.setItem(
+        "historicoOrcamentos",
+        JSON.stringify(historico)
+    );
+
+    renderizarHistorico();
 
 }

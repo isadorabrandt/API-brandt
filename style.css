@@ -413,3 +413,40 @@ button:hover {
     color: #bdbdbd;
 
 }
+
+.acoes-historico {
+
+    margin-top: 10px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+}
+
+.btn-excluir {
+
+    background: #b91c1c;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 6px 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: .2s;
+}
+
+.btn-excluir:hover {
+
+    transform: translateY(-1px);
+
+    opacity: .9;
+
+}
