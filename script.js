@@ -366,6 +366,12 @@ function renderizarHistorico() {
    INICIALIZA
 ========================= */
 
-atualizarData();
-gerarPreview();
-renderizarHistorico();
+window.addEventListener("DOMContentLoaded", () => {
+
+    atualizarData();
+
+    gerarPreview();
+
+    renderizarHistorico();
+
+});
