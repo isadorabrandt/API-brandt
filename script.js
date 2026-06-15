@@ -213,7 +213,7 @@ registrarEventosServicos();
    BAIXAR PNG
 ========================= */
 
-function BaixarPNG() {
+function baixarPNG() {
 
     const elemento =
         document.getElementById(
