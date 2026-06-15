@@ -215,10 +215,46 @@ registrarEventosServicos();
 
 function baixarPNG() {
 
+    const historico =
+        obterHistorico();
+
+    const numero =
+        historico.length + 1;
+
+    const clienteNome =
+        document.getElementById("cliente").value || "Sem Nome";
+
+    const veiculoNome =
+        document.getElementById("veiculo").value || "-";
+
+    const totalTexto =
+        document.getElementById("valorTotal").textContent;
+
+    const total =
+        Number(
+            totalTexto
+                .replace("R$", "")
+                .replace(",", ".")
+                .trim()
+        ) || 0;
+
+    salvarHistorico({
+
+        numero,
+
+        cliente: clienteNome,
+
+        veiculo: veiculoNome,
+
+        total,
+
+        data: new Date()
+            .toLocaleDateString("pt-BR")
+
+    });
+
     const elemento =
-        document.getElementById(
-            "orcamento"
-        );
+        document.getElementById("orcamento");
 
     html2canvas(elemento, {
 
@@ -234,12 +270,10 @@ function baixarPNG() {
             document.createElement("a");
 
         const cliente =
-            document.getElementById(
-                "cliente"
-            ).value
-            .trim()
-            .replace(/\s+/g, "-")
-            .toLowerCase();
+            clienteNome
+                .trim()
+                .replace(/\s+/g, "-")
+                .toLowerCase();
 
         link.download =
             cliente
@@ -247,9 +281,7 @@ function baixarPNG() {
                 : "orcamento-brandt.png";
 
         link.href =
-            canvas.toDataURL(
-                "image/png"
-            );
+            canvas.toDataURL("image/png");
 
         link.click();
 
@@ -285,15 +317,19 @@ function salvarHistorico(orcamento) {
 
 }
 
+/* =========================
+   RENDERIZA HISTÓRICO
+========================= */
+
 function renderizarHistorico() {
 
     const historico =
         obterHistorico();
 
     const container =
-        document.getElementById(
-            "historico"
-        );
+        document.getElementById("historico");
+
+    if (!container) return;
 
     container.innerHTML = "";
 
@@ -326,7 +362,6 @@ function renderizarHistorico() {
     });
 
 }
-
 /* =========================
    INICIALIZA
 ========================= */
