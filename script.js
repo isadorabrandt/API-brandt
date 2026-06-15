@@ -23,8 +23,12 @@ const servicos = [
 
 const servicosContainer =
     document.getElementById("servicos-container");
+
+
 let numeroOrcamento =
     localStorage.getItem("ultimoOrcamento") || 1;
+
+
 /* =========================
    CRIA SERVIÇOS
 ========================= */
@@ -237,11 +241,48 @@ function salvarHistorico(orcamento) {
 
 function baixarPNG() {
 
+
+    let orcamentoEmEdicao = null;
+
+    document.getElementById(
+        "modoEdicao"
+    ).textContent = "";
+
+
     const historico =
         obterHistorico();
 
-    const numero =
-        historico.length + 1;
+    const agora = new Date();
+
+    const dataHora =
+        agora.toLocaleDateString("pt-BR") +
+        " às " +
+        agora.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    let numero;
+
+    let dataCriacao;
+
+    if (orcamentoEmEdicao) {
+
+        numero =
+            orcamentoEmEdicao.numero;
+
+        dataCriacao =
+            orcamentoEmEdicao.dataCriacao;
+
+    } else {
+
+        numero =
+            historico.length + 1;
+
+        dataCriacao =
+            dataHora;
+
+    }
 
     const clienteNome =
         document.getElementById("cliente").value || "Sem Nome";
@@ -260,23 +301,32 @@ function baixarPNG() {
                 .trim()
         ) || 0;
 
-    salvarHistorico({
+    const observacoes =
+        document.getElementById("observacoes").value;
 
-        numero,
+    const servicosSelecionados = [];
 
-        cliente: clienteNome,
+    servicos.forEach((servico, index) => {
 
-        veiculo: veiculoNome,
+        if (
+            document.getElementById(
+                `check${index}`
+            ).checked
+        ) {
 
-        total,
+            servicosSelecionados.push({
 
-        data: new Date().toLocaleString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        })
+                nome: servico.nome,
+
+                valor: Number(
+                    document.getElementById(
+                        `valor${index}`
+                    ).value
+                )
+
+            });
+
+        }
 
     });
 
@@ -330,12 +380,15 @@ function obterHistorico() {
 
 }
 
-function salvarHistorico(orcamento) {
+if (orcamentoEmEdicao) {
 
-    const historico =
-        obterHistorico();
+    const indice =
+        historico.findIndex(item =>
+            item.numero === numero
+        );
 
-    historico.unshift(orcamento);
+    historico[indice] =
+        novoOrcamento;
 
     localStorage.setItem(
         "historicoOrcamentos",
@@ -344,8 +397,15 @@ function salvarHistorico(orcamento) {
 
     renderizarHistorico();
 
-}
+    orcamentoEmEdicao = null;
 
+} else {
+
+    salvarHistorico(
+        novoOrcamento
+    );
+
+}
 /* =========================
    RENDERIZA HISTÓRICO
 ========================= */
@@ -380,7 +440,14 @@ function renderizarHistorico() {
                 <br>
 
                 <small>
-                    ${item.data}
+                  📅 Criado:
+                    ${item.dataCriacao || "-"}
+
+                <br>
+
+                <small>
+                    ✏️ Atualizado:
+                        ${item.dataModificacao || "-"}
                 </small>
 
                 <br>
@@ -390,6 +457,14 @@ function renderizarHistorico() {
                 </small>
 
                 <div class="acoes-historico">
+
+    <button
+        class="btn-reabrir"
+        onclick="reabrirOrcamento(${item.numero})">
+
+        📂 Reabrir
+
+    </button>
 
     <button
         class="btn-excluir"
@@ -404,8 +479,7 @@ function renderizarHistorico() {
 
 
 
-
-            </div>
+ </div>
 
         `;
 
@@ -437,5 +511,79 @@ function excluirOrcamento(numero) {
     );
 
     renderizarHistorico();
+
+}
+
+
+/* =========================
+   REABRIR ORÇAMENTOS   
+========================= */
+
+function reabrirOrcamento(numero) {
+
+    const historico =
+        obterHistorico();
+
+    const orcamento =
+        historico.find(item =>
+            item.numero === numero
+        );
+
+    if (!orcamento) return;
+
+    orcamentoEmEdicao =
+        orcamento;
+
+    document.getElementById(
+        "modoEdicao"
+    ).textContent =
+        `Editando orçamento #${String(numero).padStart(4, "0")}`;
+
+    document.getElementById("cliente").value =
+        orcamento.cliente || "";
+
+    document.getElementById("veiculo").value =
+        orcamento.veiculo || "";
+
+    document.getElementById("observacoes").value =
+        orcamento.observacoes || "";
+
+    servicos.forEach((servico, index) => {
+
+        document.getElementById(
+            `check${index}`
+        ).checked = false;
+
+    });
+
+    if (orcamento.servicos) {
+
+        orcamento.servicos.forEach(servicoSalvo => {
+
+            servicos.forEach((servico, index) => {
+
+                if (
+                    servico.nome ===
+                    servicoSalvo.nome
+                ) {
+
+                    document.getElementById(
+                        `check${index}`
+                    ).checked = true;
+
+                    document.getElementById(
+                        `valor${index}`
+                    ).value =
+                        servicoSalvo.valor;
+
+                }
+
+            });
+
+        });
+
+    }
+
+    gerarPreview();
 
 }

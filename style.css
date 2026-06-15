@@ -450,3 +450,40 @@ button:hover {
     opacity: .9;
 
 }
+
+.btn-reabrir {
+
+    background: #f97316;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 6px 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: .2s;
+}
+
+.btn-reabrir:hover {
+
+    transform: translateY(-1px);
+
+    opacity: .9;
+
+}
+
+#modoEdicao {
+
+    color: #f97316;
+
+    font-weight: 600;
+
+    margin-bottom: 15px;
+
+}
