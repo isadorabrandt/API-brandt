@@ -213,6 +213,13 @@ registrarEventosServicos();
    BAIXAR PNG
 ========================= */
 
+function salvarHistorico(orcamento) {
+
+    console.log("SALVOU");
+
+    const historico =
+        obterHistorico();
+
 function baixarPNG() {
 
     const historico =
@@ -287,6 +294,7 @@ function baixarPNG() {
 
     });
 
+}
 }
 
 /* =========================
