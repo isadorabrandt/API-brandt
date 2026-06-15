@@ -270,8 +270,13 @@ function baixarPNG() {
 
         total,
 
-        data: new Date()
-            .toLocaleDateString("pt-BR")
+        data: new Date().toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        })
 
     });
 
@@ -358,29 +363,35 @@ function renderizarHistorico() {
     container.innerHTML = "";
 
     historico.forEach(item => {
-
         container.innerHTML += `
-        
-            <div class="item-historico">
 
-                <strong>
-                    #${String(item.numero)
-                        .padStart(4,"0")}
-                    - ${item.cliente}
-                </strong>
+    <div class="item-historico">
 
-                <small>
-                    ${item.veiculo}
-                </small>
+        <strong>
+            #${String(item.numero)
+                .padStart(4, "0")}
+            - ${item.cliente}
+        </strong>
 
-                <br>
+        <small>
+            ${item.veiculo}
+        </small>
 
-                <small>
-                    R$ ${item.total.toFixed(2)}
-                </small>
+        <br>
 
-            </div>
+        <small>
+            ${item.data}
+        </small>
 
+        <br>
+
+        <small>
+            R$ ${item.total.toFixed(2)}
+        </small>
+
+    </div>
+
+`;
         `;
 
     });

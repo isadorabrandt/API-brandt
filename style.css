@@ -403,3 +403,13 @@ button:hover {
 
     color:#aaa;
 }
+
+.item-historico small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #bdbdbd;
+
+}
