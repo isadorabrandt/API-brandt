@@ -349,7 +349,6 @@ function salvarHistorico(orcamento) {
 /* =========================
    RENDERIZA HISTÓRICO
 ========================= */
-
 function renderizarHistorico() {
 
     const historico =
@@ -363,50 +362,37 @@ function renderizarHistorico() {
     container.innerHTML = "";
 
     historico.forEach(item => {
+
         container.innerHTML += `
 
-    <div class="item-historico">
+            <div class="item-historico">
 
-        <strong>
-            #${String(item.numero)
-                .padStart(4, "0")}
-            - ${item.cliente}
-        </strong>
+                <strong>
+                    #${String(item.numero)
+                        .padStart(4, "0")}
+                    - ${item.cliente}
+                </strong>
 
-        <small>
-            ${item.veiculo}
-        </small>
+                <small>
+                    ${item.veiculo}
+                </small>
 
-        <br>
+                <br>
 
-        <small>
-            ${item.data}
-        </small>
+                <small>
+                    ${item.data}
+                </small>
 
-        <br>
+                <br>
 
-        <small>
-            R$ ${item.total.toFixed(2)}
-        </small>
+                <small>
+                    R$ ${item.total.toFixed(2)}
+                </small>
 
-    </div>
+            </div>
 
-`;
         `;
 
     });
 
 }
-/* =========================
-   INICIALIZA
-========================= */
-
-window.addEventListener("DOMContentLoaded", () => {
-
-    atualizarData();
-
-    gerarPreview();
-
-    renderizarHistorico();
-
-});
