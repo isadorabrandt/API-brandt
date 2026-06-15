@@ -210,7 +210,7 @@ function registrarEventosServicos() {
 registrarEventosServicos();
 
 /* =========================
-   BAIXAR PNG
+   SALVAR HISTÓRICO
 ========================= */
 
 function salvarHistorico(orcamento) {
@@ -219,6 +219,21 @@ function salvarHistorico(orcamento) {
 
     const historico =
         obterHistorico();
+
+    historico.unshift(orcamento);
+
+    localStorage.setItem(
+        "historicoOrcamentos",
+        JSON.stringify(historico)
+    );
+
+    renderizarHistorico();
+
+}
+
+/* =========================
+   BAIXAR PNG
+========================= */
 
 function baixarPNG() {
 
@@ -295,7 +310,8 @@ function baixarPNG() {
     });
 
 }
-}
+
+
 
 /* =========================
    HISTÓRICO
