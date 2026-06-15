@@ -352,3 +352,54 @@ button:hover {
         max-width: 540px;
     }
 }
+
+/* =========================
+   HISTÓRICO
+========================= */
+
+#historico{
+    margin-top:10px;
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    max-height:350px;
+    overflow-y:auto;
+}
+
+.item-historico{
+
+    background:#181818;
+
+    border:1px solid #333;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.item-historico:hover{
+
+    border-color:var(--laranja);
+
+    transform:translateY(-2px);
+}
+
+.item-historico strong{
+
+    color:var(--laranja);
+
+    display:block;
+
+    margin-bottom:5px;
+}
+
+.item-historico small{
+
+    color:#aaa;
+}

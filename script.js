@@ -258,8 +258,79 @@ function BaixarPNG() {
 }
 
 /* =========================
+   HISTÓRICO
+========================= */
+
+function obterHistorico() {
+
+    return JSON.parse(
+        localStorage.getItem("historicoOrcamentos")
+    ) || [];
+
+}
+
+function salvarHistorico(orcamento) {
+
+    const historico =
+        obterHistorico();
+
+    historico.unshift(orcamento);
+
+    localStorage.setItem(
+        "historicoOrcamentos",
+        JSON.stringify(historico)
+    );
+
+    renderizarHistorico();
+
+}
+
+function renderizarHistorico() {
+
+    const historico =
+        obterHistorico();
+
+    const container =
+        document.getElementById(
+            "historico"
+        );
+
+    container.innerHTML = "";
+
+    historico.forEach(item => {
+
+        container.innerHTML += `
+        
+            <div class="item-historico">
+
+                <strong>
+                    #${String(item.numero)
+                        .padStart(4,"0")}
+                    - ${item.cliente}
+                </strong>
+
+                <small>
+                    ${item.veiculo}
+                </small>
+
+                <br>
+
+                <small>
+                    R$ ${item.total.toFixed(2)}
+                </small>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+/* =========================
    INICIALIZA
 ========================= */
 
 atualizarData();
 gerarPreview();
+renderizarHistorico();
