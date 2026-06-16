@@ -527,3 +527,58 @@ button:hover {
     flex: 1;
 
 }
+
+/* =========================
+   GERENCIAR SERVIÇOS
+========================= */
+
+#gerenciarServicos{
+
+    display:none;
+
+    margin-top:10px;
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.item-gerenciar{
+
+    background:#181818;
+
+    border:1px solid #333;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.item-gerenciar input{
+
+    padding:8px;
+}
+
+.item-gerenciar .nome{
+
+    flex:1;
+}
+
+.item-gerenciar .valor{
+
+    width:90px;
+}
+
+.btn-salvar-servico{
+
+    background:#16a34a;
+}
+
+.btn-remover-servico{
+
+    background:#b91c1c;
+}

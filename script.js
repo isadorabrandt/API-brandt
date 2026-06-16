@@ -229,6 +229,160 @@ function adicionarServicoPersonalizado(
 
 }
 
+/* ==========================================
+   03.5 - GERENCIAR SERVIÇOS
+========================================== */
+
+function toggleGerenciarServicos() {
+
+    const container =
+        document.getElementById(
+            "gerenciarServicos"
+        );
+
+    if (
+        container.style.display ===
+        "none"
+    ) {
+
+        container.style.display =
+            "flex";
+
+        renderizarGerenciadorServicos();
+
+    } else {
+
+        container.style.display =
+            "none";
+
+    }
+
+}
+
+function renderizarGerenciadorServicos() {
+
+    const container =
+        document.getElementById(
+            "gerenciarServicos"
+        );
+
+    const servicosSalvos =
+        JSON.parse(
+            localStorage.getItem(
+                "servicosPersonalizados"
+            )
+        ) || [];
+
+    container.innerHTML = "";
+
+    servicosSalvos.forEach(
+        (servico, index) => {
+
+            container.innerHTML += `
+
+                <div class="item-gerenciar">
+
+                    <input
+                        class="nome"
+                        id="nomeServico${index}"
+                        value="${servico.nome}"
+                    >
+
+                    <input
+                        class="valor"
+                        type="number"
+                        id="valorServico${index}"
+                        value="${servico.valor}"
+                    >
+
+                    <button
+                        class="btn-salvar-servico"
+                        onclick="editarServico(${index})">
+
+                        💾
+
+                    </button>
+
+                    <button
+                        class="btn-remover-servico"
+                        onclick="removerServico(${index})">
+
+                        🗑
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+}
+
+function editarServico(index) {
+
+    const servicosSalvos =
+        JSON.parse(
+            localStorage.getItem(
+                "servicosPersonalizados"
+            )
+        ) || [];
+
+    servicosSalvos[index].nome =
+        document.getElementById(
+            `nomeServico${index}`
+        ).value;
+
+    servicosSalvos[index].valor =
+        Number(
+            document.getElementById(
+                `valorServico${index}`
+            ).value
+        );
+
+    localStorage.setItem(
+        "servicosPersonalizados",
+        JSON.stringify(
+            servicosSalvos
+        )
+    );
+
+    alert(
+        "Serviço atualizado."
+    );
+
+}
+
+function removerServico(index) {
+
+    if (
+        !confirm(
+            "Deseja excluir este serviço?"
+        )
+    ) return;
+
+    const servicosSalvos =
+        JSON.parse(
+            localStorage.getItem(
+                "servicosPersonalizados"
+            )
+        ) || [];
+
+    servicosSalvos.splice(
+        index,
+        1
+    );
+
+    localStorage.setItem(
+        "servicosPersonalizados",
+        JSON.stringify(
+            servicosSalvos
+        )
+    );
+
+    renderizarGerenciadorServicos();
+
+}
 
 
 /* ==========================================

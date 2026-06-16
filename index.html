@@ -42,6 +42,7 @@
                 <input type="text" id="novoServicoNome" placeholder="Nome do serviço">
 
                 <input type="number" id="novoServicoValor" placeholder="Valor">
+                
                 <div class="botoes-servico">
 
                     <button type="button" onclick="adicionarServicoPersonalizado(false)">
@@ -52,20 +53,21 @@
 
                     <button type="button" onclick="adicionarServicoPersonalizado(true)">
 
-                        💾 Adicionar permanentemente
+                        💾 Salvar Serviço
 
                     </button>
-
-                    <h3>⚙ Gerenciar Serviços</h3>
-
-                    <button onclick="toggleGerenciarServicos()">
-                        Mostrar / Ocultar
-                    </button>
-
-                    <div id="gerenciarServicos"></div>
 
                 </div>
 
+                <h3>⚙ Gerenciar Serviços</h3>
+
+                <button type="button" onclick="toggleGerenciarServicos()">
+
+                    Mostrar / Ocultar
+
+                </button>
+
+                <div id="gerenciarServicos"></div>
                 <button onclick="baixarPNG()">
                     Baixar PNG
                 </button>
