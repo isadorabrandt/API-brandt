@@ -1,3 +1,7 @@
+/* ==========================================
+   01 - CONFIGURAÇÕES GERAIS
+========================================== */
+
 const servicos = [
     {
         nome: "Estética de Manutenção",
@@ -21,22 +25,25 @@ const servicos = [
     }
 ];
 
+let orcamentoEmEdicao = null;
+
+/* ==========================================
+   02 - ELEMENTOS
+========================================== */
+
 const servicosContainer =
-    document.getElementById("servicos-container");
+    document.getElementById(
+        "servicos-container"
+    );
 
-
-let numeroOrcamento =
-    localStorage.getItem("ultimoOrcamento") || 1;
-
-
-/* =========================
-   CRIA SERVIÇOS
-========================= */
+/* ==========================================
+   03 - CRIAÇÃO DOS SERVIÇOS
+========================================== */
 
 servicos.forEach((servico, index) => {
 
     servicosContainer.innerHTML += `
-    
+
         <div class="servico-item">
 
             <input
@@ -58,32 +65,27 @@ servicos.forEach((servico, index) => {
         </div>
 
     `;
+
 });
 
-localStorage.setItem(
-    "ultimoOrcamento",
-    Number(numeroOrcamento) + 1
-);
-
-/* =========================
-   DATA AUTOMÁTICA
-========================= */
+/* ==========================================
+   04 - DATA
+========================================== */
 
 function atualizarData() {
 
     const hoje = new Date();
 
-    const dataFormatada =
-        hoje.toLocaleDateString('pt-BR');
-
     document.getElementById(
         "previewData"
-    ).textContent = dataFormatada;
+    ).textContent =
+        hoje.toLocaleDateString("pt-BR");
+
 }
 
-/* =========================
-   GERA PREVIEW
-========================= */
+/* ==========================================
+   05 - PREVIEW
+========================================== */
 
 function gerarPreview() {
 
@@ -98,11 +100,13 @@ function gerarPreview() {
 
     document.getElementById(
         "previewCliente"
-    ).textContent = cliente || "---";
+    ).textContent =
+        cliente || "---";
 
     document.getElementById(
         "previewVeiculo"
-    ).textContent = veiculo || "---";
+    ).textContent =
+        veiculo || "---";
 
     document.getElementById(
         "previewObservacoes"
@@ -132,7 +136,7 @@ function gerarPreview() {
             total += valor;
 
             html += `
-            
+
                 <div class="servico-card">
 
                     <span class="nome">
@@ -146,6 +150,7 @@ function gerarPreview() {
                 </div>
 
             `;
+
         }
 
     });
@@ -158,36 +163,12 @@ function gerarPreview() {
         "valorTotal"
     ).textContent =
         `R$ ${total.toFixed(2)}`;
+
 }
 
-/* =========================
-   EVENTOS AUTOMÁTICOS
-========================= */
-
-document.getElementById(
-    "cliente"
-).addEventListener(
-    "input",
-    gerarPreview
-);
-
-document.getElementById(
-    "veiculo"
-).addEventListener(
-    "input",
-    gerarPreview
-);
-
-document.getElementById(
-    "observacoes"
-).addEventListener(
-    "input",
-    gerarPreview
-);
-
-/* =========================
-   OBSERVA CHECKBOXES
-========================= */
+/* ==========================================
+   06 - EVENTOS
+========================================== */
 
 function registrarEventosServicos() {
 
@@ -211,184 +192,49 @@ function registrarEventosServicos() {
 
 }
 
-registrarEventosServicos();
+document.getElementById(
+    "cliente"
+).addEventListener(
+    "input",
+    gerarPreview
+);
 
-/* =========================
-   SALVAR HISTÓRICO
-========================= */
+document.getElementById(
+    "veiculo"
+).addEventListener(
+    "input",
+    gerarPreview
+);
 
-function salvarHistorico(orcamento) {
+document.getElementById(
+    "observacoes"
+).addEventListener(
+    "input",
+    gerarPreview
+);
 
-    console.log("SALVOU");
-
-    const historico =
-        obterHistorico();
-
-    historico.unshift(orcamento);
-
-    localStorage.setItem(
-        "historicoOrcamentos",
-        JSON.stringify(historico)
-    );
-
-    renderizarHistorico();
-
-}
-
-/* =========================
-   BAIXAR PNG
-========================= */
-
-function baixarPNG() {
-
-
-    let orcamentoEmEdicao = null;
-
-    document.getElementById(
-        "modoEdicao"
-    ).textContent = "";
-
-
-    const historico =
-        obterHistorico();
-
-    const agora = new Date();
-
-    const dataHora =
-        agora.toLocaleDateString("pt-BR") +
-        " às " +
-        agora.toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
-
-    let numero;
-
-    let dataCriacao;
-
-    if (orcamentoEmEdicao) {
-
-        numero =
-            orcamentoEmEdicao.numero;
-
-        dataCriacao =
-            orcamentoEmEdicao.dataCriacao;
-
-    } else {
-
-        numero =
-            historico.length + 1;
-
-        dataCriacao =
-            dataHora;
-
-    }
-
-    const clienteNome =
-        document.getElementById("cliente").value || "Sem Nome";
-
-    const veiculoNome =
-        document.getElementById("veiculo").value || "-";
-
-    const totalTexto =
-        document.getElementById("valorTotal").textContent;
-
-    const total =
-        Number(
-            totalTexto
-                .replace("R$", "")
-                .replace(",", ".")
-                .trim()
-        ) || 0;
-
-    const observacoes =
-        document.getElementById("observacoes").value;
-
-    const servicosSelecionados = [];
-
-    servicos.forEach((servico, index) => {
-
-        if (
-            document.getElementById(
-                `check${index}`
-            ).checked
-        ) {
-
-            servicosSelecionados.push({
-
-                nome: servico.nome,
-
-                valor: Number(
-                    document.getElementById(
-                        `valor${index}`
-                    ).value
-                )
-
-            });
-
-        }
-
-    });
-
-    const elemento =
-        document.getElementById("orcamento");
-
-    html2canvas(elemento, {
-
-        scale: 3,
-
-        backgroundColor: "#000000",
-
-        useCORS: true
-
-    }).then(canvas => {
-
-        const link =
-            document.createElement("a");
-
-        const cliente =
-            clienteNome
-                .trim()
-                .replace(/\s+/g, "-")
-                .toLowerCase();
-
-        link.download =
-            cliente
-                ? `orcamento-${cliente}.png`
-                : "orcamento-brandt.png";
-
-        link.href =
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-    });
-
-}
-
-
-
-/* =========================
-   HISTÓRICO
-========================= */
+/* ==========================================
+   07 - HISTÓRICO
+========================================== */
 
 function obterHistorico() {
 
     return JSON.parse(
-        localStorage.getItem("historicoOrcamentos")
+        localStorage.getItem(
+            "historicoOrcamentos"
+        )
     ) || [];
 
 }
 
-if (orcamentoEmEdicao) {
+function salvarHistorico(orcamento) {
 
-    const indice =
-        historico.findIndex(item =>
-            item.numero === numero
-        );
+    const historico =
+        obterHistorico();
 
-    historico[indice] =
-        novoOrcamento;
+    historico.unshift(
+        orcamento
+    );
 
     localStorage.setItem(
         "historicoOrcamentos",
@@ -397,25 +243,21 @@ if (orcamentoEmEdicao) {
 
     renderizarHistorico();
 
-    orcamentoEmEdicao = null;
-
-} else {
-
-    salvarHistorico(
-        novoOrcamento
-    );
-
 }
-/* =========================
-   RENDERIZA HISTÓRICO
-========================= */
+
+/* ==========================================
+   08 - RENDERIZAR HISTÓRICO
+========================================== */
+
 function renderizarHistorico() {
 
     const historico =
         obterHistorico();
 
     const container =
-        document.getElementById("historico");
+        document.getElementById(
+            "historico"
+        );
 
     if (!container) return;
 
@@ -425,61 +267,60 @@ function renderizarHistorico() {
 
         container.innerHTML += `
 
-            <div class="item-historico">
+        <div class="item-historico">
 
-                <strong>
-                    #${String(item.numero)
-                .padStart(4, "0")}
-                    - ${item.cliente}
-                </strong>
+            <strong>
+                #${String(item.numero).padStart(4, "0")}
+                - ${item.cliente}
+            </strong>
 
-                <small>
-                    ${item.veiculo}
-                </small>
+            <br>
 
-                <br>
+            <small>
+                🚗 ${item.veiculo}
+            </small>
 
-                <small>
-                  📅 Criado:
-                    ${item.dataCriacao || "-"}
+            <br>
 
-                <br>
+            <small>
+                📅 Criado:
+                ${item.dataCriacao}
+            </small>
 
-                <small>
-                    ✏️ Atualizado:
-                        ${item.dataModificacao || "-"}
-                </small>
+            <br>
 
-                <br>
+            <small>
+                ✏️ Atualizado:
+                ${item.dataModificacao}
+            </small>
 
-                <small>
-                    R$ ${item.total.toFixed(2)}
-                </small>
+            <br>
 
-                <div class="acoes-historico">
+            <small>
+                R$ ${item.total.toFixed(2)}
+            </small>
 
-    <button
-        class="btn-reabrir"
-        onclick="reabrirOrcamento(${item.numero})">
+            <div class="acoes-historico">
 
-        📂 Reabrir
+                <button
+                    class="btn-reabrir"
+                    onclick="reabrirOrcamento(${item.numero})">
 
-    </button>
+                    📂 Reabrir
 
-    <button
-        class="btn-excluir"
-        onclick="excluirOrcamento(${item.numero})">
+                </button>
 
-        🗑 Excluir
+                <button
+                    class="btn-excluir"
+                    onclick="excluirOrcamento(${item.numero})">
 
-    </button>
+                    🗑 Excluir
 
-</div>
+                </button>
 
+            </div>
 
-
-
- </div>
+        </div>
 
         `;
 
@@ -487,23 +328,25 @@ function renderizarHistorico() {
 
 }
 
-/* =========================
-   EXCLUIR ORÇAMENTOS   
-========================= */
+/* ==========================================
+   09 - GERENCIAMENTO
+========================================== */
 
 function excluirOrcamento(numero) {
 
-    const confirmar = confirm(
-        `Deseja excluir o orçamento #${String(numero).padStart(4, "0")} ?`
-    );
+    if (
+        !confirm(
+            `Excluir orçamento #${String(numero).padStart(4, "0")} ?`
+        )
+    ) return;
 
-    if (!confirmar) return;
+    let historico =
+        obterHistorico();
 
-    let historico = obterHistorico();
-
-    historico = historico.filter(item =>
-        item.numero !== numero
-    );
+    historico =
+        historico.filter(item =>
+            item.numero !== numero
+        );
 
     localStorage.setItem(
         "historicoOrcamentos",
@@ -513,7 +356,6 @@ function excluirOrcamento(numero) {
     renderizarHistorico();
 
 }
-
 
 /* =========================
    REABRIR ORÇAMENTOS   
@@ -587,3 +429,187 @@ function reabrirOrcamento(numero) {
     gerarPreview();
 
 }
+
+/* ==========================================
+   11 - EXPORTAÇÃO PNG
+========================================== */
+
+function baixarPNG() {
+
+    const historico =
+        obterHistorico();
+
+    const agora =
+        new Date();
+
+    const dataHora =
+        agora.toLocaleDateString("pt-BR") +
+        " às " +
+        agora.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    let numero;
+    let dataCriacao;
+
+    if (orcamentoEmEdicao) {
+
+        numero =
+            orcamentoEmEdicao.numero;
+
+        dataCriacao =
+            orcamentoEmEdicao.dataCriacao;
+
+    } else {
+
+        numero =
+            historico.length + 1;
+
+        dataCriacao =
+            dataHora;
+
+    }
+
+    const clienteNome =
+        document.getElementById("cliente").value || "Sem Nome";
+
+    const veiculoNome =
+        document.getElementById("veiculo").value || "-";
+
+    const observacoes =
+        document.getElementById("observacoes").value;
+
+    const total =
+        Number(
+            document
+                .getElementById("valorTotal")
+                .textContent
+                .replace("R$", "")
+                .replace(",", ".")
+                .trim()
+        ) || 0;
+
+    const servicosSelecionados = [];
+
+    servicos.forEach((servico, index) => {
+
+        if (
+            document.getElementById(
+                `check${index}`
+            ).checked
+        ) {
+
+            servicosSelecionados.push({
+
+                nome: servico.nome,
+
+                valor: Number(
+                    document.getElementById(
+                        `valor${index}`
+                    ).value
+                )
+
+            });
+
+        }
+
+    });
+
+    const novoOrcamento = {
+
+        numero,
+
+        cliente: clienteNome,
+
+        veiculo: veiculoNome,
+
+        observacoes,
+
+        servicos: servicosSelecionados,
+
+        total,
+
+        dataCriacao,
+
+        dataModificacao: dataHora
+
+    };
+
+    if (orcamentoEmEdicao) {
+
+        const indice =
+            historico.findIndex(item =>
+                item.numero === numero
+            );
+
+        historico[indice] =
+            novoOrcamento;
+
+        localStorage.setItem(
+            "historicoOrcamentos",
+            JSON.stringify(historico)
+        );
+
+        renderizarHistorico();
+
+        orcamentoEmEdicao = null;
+
+    } else {
+
+        salvarHistorico(
+            novoOrcamento
+        );
+
+    }
+
+    const elemento =
+        document.getElementById(
+            "orcamento"
+        );
+
+    html2canvas(elemento, {
+
+        scale: 3,
+
+        backgroundColor: "#000",
+
+        useCORS: true
+
+    }).then(canvas => {
+
+        const link =
+            document.createElement("a");
+
+        link.download =
+            `orcamento-${clienteNome}.png`;
+
+        link.href =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+        link.click();
+
+    });
+
+}
+
+/* ==========================================
+   12 - INICIALIZAÇÃO
+========================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        atualizarData();
+
+        registrarEventosServicos();
+
+        gerarPreview();
+
+        renderizarHistorico();
+
+    }
+);
