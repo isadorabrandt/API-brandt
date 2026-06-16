@@ -68,6 +68,94 @@ servicos.forEach((servico, index) => {
 
 });
 
+/* ======== ADICIONAR SERVIÇO PERSONALIZADO ======== */
+
+function adicionarServicoPersonalizado() {
+
+    const nome =
+        document.getElementById(
+            "novoServicoNome"
+        ).value.trim();
+
+    const valor =
+        Number(
+            document.getElementById(
+                "novoServicoValor"
+            ).value
+        );
+
+    if (!nome) {
+
+        alert(
+            "Informe o nome do serviço."
+        );
+
+        return;
+
+    }
+
+    const index =
+        servicos.length;
+
+    servicos.push({
+
+        nome,
+
+        valor
+
+    });
+
+    servicosContainer.innerHTML += `
+
+        <div class="servico-item">
+
+            <input
+                type="checkbox"
+                id="check${index}"
+                checked
+            >
+
+            <span>
+                ${nome}
+            </span>
+
+            <input
+                type="number"
+                id="valor${index}"
+                value="${valor}"
+                min="0"
+            >
+
+        </div>
+
+    `;
+
+    document.getElementById(
+        "novoServicoNome"
+    ).value = "";
+
+    document.getElementById(
+        "novoServicoValor"
+    ).value = "";
+
+    document.getElementById(
+        `check${index}`
+    ).addEventListener(
+        "change",
+        gerarPreview
+    );
+
+    document.getElementById(
+        `valor${index}`
+    ).addEventListener(
+        "input",
+        gerarPreview
+    );
+
+    gerarPreview();
+
+}
+
 /* ==========================================
    04 - DATA
 ========================================== */

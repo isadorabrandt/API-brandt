@@ -487,3 +487,29 @@ button:hover {
     margin-bottom: 15px;
 
 }
+
+.servico-personalizado {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+.servico-personalizado input {
+
+    padding: 8px;
+
+}
+
+.servico-personalizado button {
+
+    padding: 10px;
+
+    cursor: pointer;
+
+}
