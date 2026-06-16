@@ -97,9 +97,21 @@ function carregarServicosSalvos() {
             )
         ) || [];
 
-    servicosSalvos.forEach(servico => {
+    servicosSalvos.forEach(servicoSalvo => {
 
-        servicos.push(servico);
+        const jaExiste =
+            servicos.some(servico =>
+                servico.nome ===
+                servicoSalvo.nome
+            );
+
+        if (!jaExiste) {
+
+            servicos.push(
+                servicoSalvo
+            );
+
+        }
 
     });
 
@@ -126,6 +138,12 @@ function atualizarData() {
 ========================================== */
 
 function gerarPreview() {
+
+    setTimeout(() => {
+
+        gerarPreview();
+
+    }, 100);
 
     const cliente =
         document.getElementById("cliente").value;
@@ -158,23 +176,23 @@ function gerarPreview() {
     servicos.forEach((servico, index) => {
 
         const servicosSalvos =
-    JSON.parse(
-        localStorage.getItem(
-            "servicosPersonalizados"
-        )
-    ) || [];
+            JSON.parse(
+                localStorage.getItem(
+                    "servicosPersonalizados"
+                )
+            ) || [];
 
-servicosSalvos.forEach(
-    servico => {
+        servicosSalvos.forEach(
+            servico => {
 
-        const index =
-            servicos.length;
+                const index =
+                    servicos.length;
 
-        servicos.push(
-            servico
-        );
+                servicos.push(
+                    servico
+                );
 
-        servicosContainer.innerHTML += `
+                servicosContainer.innerHTML += `
 
             <div class="servico-item">
 
@@ -198,8 +216,8 @@ servicosSalvos.forEach(
 
         `;
 
-    }
-);
+            }
+        );
 
         const marcado =
             document.getElementById(
