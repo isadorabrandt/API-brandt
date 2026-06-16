@@ -514,6 +514,12 @@ function reabrirOrcamento(numero) {
                     ).checked = true;
 
                     document.getElementById(
+                        `check${index}`
+                    ).dispatchEvent(
+                        new Event("change")
+                    );
+
+                    document.getElementById(
                         `valor${index}`
                     ).value =
                         servicoSalvo.valor;
