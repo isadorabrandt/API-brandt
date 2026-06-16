@@ -116,6 +116,120 @@ function carregarServicosSalvos() {
 
 }
 
+/* ==========================================
+   03.2 - ADICIONAR SERVIÇO PERSONALIZADO
+========================================== */
+
+function adicionarServicoPersonalizado(
+    salvarPermanentemente = false
+) {
+
+    const nome =
+        document.getElementById(
+            "novoServicoNome"
+        ).value.trim();
+
+    const valor =
+        Number(
+            document.getElementById(
+                "novoServicoValor"
+            ).value
+        );
+
+    if (!nome) {
+
+        alert(
+            "Informe o nome do serviço."
+        );
+
+        return;
+
+    }
+
+    const novoServico = {
+
+        nome,
+
+        valor
+
+    };
+
+    if (salvarPermanentemente) {
+
+        const servicosSalvos =
+            JSON.parse(
+                localStorage.getItem(
+                    "servicosPersonalizados"
+                )
+            ) || [];
+
+        const jaExiste =
+            servicosSalvos.some(
+                servico =>
+                servico.nome.toLowerCase() ===
+                nome.toLowerCase()
+            );
+
+        if (!jaExiste) {
+
+            servicosSalvos.push(
+                novoServico
+            );
+
+            localStorage.setItem(
+                "servicosPersonalizados",
+                JSON.stringify(
+                    servicosSalvos
+                )
+            );
+
+        }
+
+    }
+
+    const index =
+        servicos.length;
+
+    servicos.push(
+        novoServico
+    );
+
+    criarServicoNaTela(
+        novoServico,
+        index
+    );
+
+    document.getElementById(
+        `check${index}`
+    ).checked = true;
+
+    document.getElementById(
+        `check${index}`
+    ).addEventListener(
+        "change",
+        gerarPreview
+    );
+
+    document.getElementById(
+        `valor${index}`
+    ).addEventListener(
+        "input",
+        gerarPreview
+    );
+
+    document.getElementById(
+        "novoServicoNome"
+    ).value = "";
+
+    document.getElementById(
+        "novoServicoValor"
+    ).value = "";
+
+    gerarPreview();
+
+}
+
+
 
 /* ==========================================
    04 - DATA
