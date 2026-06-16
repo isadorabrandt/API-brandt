@@ -70,7 +70,9 @@ servicos.forEach((servico, index) => {
 
 /* ======== ADICIONAR SERVIÇO PERSONALIZADO ======== */
 
-function adicionarServicoPersonalizado() {
+function adicionarServicoPersonalizado(
+    salvarPermanentemente = false
+) {
 
     const nome =
         document.getElementById(
@@ -94,16 +96,42 @@ function adicionarServicoPersonalizado() {
 
     }
 
-    const index =
-        servicos.length;
-
-    servicos.push({
+    const novoServico = {
 
         nome,
 
         valor
 
-    });
+    };
+
+    const index =
+        servicos.length;
+
+    servicos.push(
+        novoServico
+    );
+
+    if (salvarPermanentemente) {
+
+        const servicosSalvos =
+            JSON.parse(
+                localStorage.getItem(
+                    "servicosPersonalizados"
+                )
+            ) || [];
+
+        servicosSalvos.push(
+            novoServico
+        );
+
+        localStorage.setItem(
+            "servicosPersonalizados",
+            JSON.stringify(
+                servicosSalvos
+            )
+        );
+
+    }
 
     servicosContainer.innerHTML += `
 
@@ -131,14 +159,6 @@ function adicionarServicoPersonalizado() {
     `;
 
     document.getElementById(
-        "novoServicoNome"
-    ).value = "";
-
-    document.getElementById(
-        "novoServicoValor"
-    ).value = "";
-
-    document.getElementById(
         `check${index}`
     ).addEventListener(
         "change",
@@ -151,6 +171,14 @@ function adicionarServicoPersonalizado() {
         "input",
         gerarPreview
     );
+
+    document.getElementById(
+        "novoServicoNome"
+    ).value = "";
+
+    document.getElementById(
+        "novoServicoValor"
+    ).value = "";
 
     gerarPreview();
 
@@ -206,6 +234,50 @@ function gerarPreview() {
     let html = "";
 
     servicos.forEach((servico, index) => {
+
+        const servicosSalvos =
+    JSON.parse(
+        localStorage.getItem(
+            "servicosPersonalizados"
+        )
+    ) || [];
+
+servicosSalvos.forEach(
+    servico => {
+
+        const index =
+            servicos.length;
+
+        servicos.push(
+            servico
+        );
+
+        servicosContainer.innerHTML += `
+
+            <div class="servico-item">
+
+                <input
+                    type="checkbox"
+                    id="check${index}"
+                >
+
+                <span>
+                    ${servico.nome}
+                </span>
+
+                <input
+                    type="number"
+                    id="valor${index}"
+                    value="${servico.valor}"
+                    min="0"
+                >
+
+            </div>
+
+        `;
+
+    }
+);
 
         const marcado =
             document.getElementById(

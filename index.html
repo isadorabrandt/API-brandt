@@ -42,102 +42,111 @@
                 <input type="text" id="novoServicoNome" placeholder="Nome do serviço">
 
                 <input type="number" id="novoServicoValor" placeholder="Valor">
+                <div class="botoes-servico">
 
-                <button type="button" onclick="adicionarServicoPersonalizado()">
+                    <button type="button" onclick="adicionarServicoPersonalizado(false)">
 
-                    + Adicionar
+                        + Adicionar
 
+                    </button>
+
+                    <button type="button" onclick="adicionarServicoPersonalizado(true)">
+
+                        💾 Adicionar permanentemente
+
+                    </button>
+
+                </div>
+
+                <button onclick="baixarPNG()">
+                    Baixar PNG
                 </button>
 
+                <h3>Histórico</h3>
+
+                <div id="historico"></div>
+
             </div>
 
-            <button onclick="baixarPNG()">
-                Baixar PNG
-            </button>
+            <!-- PRÉ-VISUALIZAÇÃO -->
+            <div class="preview-area">
 
-            <h3>Histórico</h3>
+                <div id="orcamento">
 
-            <div id="historico"></div>
+                    <!-- TOPO -->
+                    <div class="topo">
 
-        </div>
+                        <img src="logobrandt.png" alt="Brandt" class="logo">
 
-        <!-- PRÉ-VISUALIZAÇÃO -->
-        <div class="preview-area">
+                        <h1 class=" titulo-orcamento ">
+                            ORÇAMENTO
+                        </h1>
 
-            <div id="orcamento">
-
-                <!-- TOPO -->
-                <div class="topo">
-
-                    <img src="logobrandt.png" alt="Brandt" class="logo">
-
-                    <h1 class=" titulo-orcamento ">
-                        ORÇAMENTO
-                    </h1>
-
-                </div>
-
-                <!-- DADOS CLIENTE -->
-                <div class="dados-cliente">
-
-                    <div>
-                        <strong>Cliente</strong>
-                        <p id="previewCliente">---</p>
                     </div>
 
-                    <div>
-                        <strong>Veículo</strong>
-                        <p id="previewVeiculo">---</p>
+                    <!-- DADOS CLIENTE -->
+                    <div class="dados-cliente">
+
+                        <div>
+                            <strong>Cliente</strong>
+                            <p id="previewCliente">---</p>
+                        </div>
+
+                        <div>
+                            <strong>Veículo</strong>
+                            <p id="previewVeiculo">---</p>
+                        </div>
+
+                        <div>
+                            <strong>Data</strong>
+                            <p id="previewData">--/--/----</p>
+                        </div>
+
                     </div>
 
-                    <div>
-                        <strong>Data</strong>
-                        <p id="previewData">--/--/----</p>
+                    <!-- SERVIÇOS -->
+                    <div id="listaServicos">
+
                     </div>
 
-                </div>
+                    <!-- TOTAL -->
+                    <div class="total-box">
 
-                <!-- SERVIÇOS -->
-                <div id="listaServicos">
+                        <span>TOTAL</span>
 
-                </div>
+                        <span id="valorTotal">
+                            R$ 0,00
+                        </span>
 
-                <!-- TOTAL -->
-                <div class="total-box">
+                    </div>
 
-                    <span>TOTAL</span>
+                    <!-- OBSERVAÇÕES -->
+                    <div class="observacoes">
 
-                    <span id="valorTotal">
-                        R$ 0,00
-                    </span>
+                        <h3>Observações</h3>
 
-                </div>
+                        <p id="previewObservacoes">
+                            Nenhuma observação.
+                        </p>
 
-                <!-- OBSERVAÇÕES -->
-                <div class="observacoes">
+                    </div>
 
-                    <h3>Observações</h3>
+                    <!-- RODAPÉ -->
+                    <div class="rodape">
 
-                    <p id="previewObservacoes">
-                        Nenhuma observação.
-                    </p>
+                        <p>
+                            📞 WhatsApp: (47) 99143-5665
+                        </p>
 
-                </div>
+                        <p>
+                            📍 Bananal do Sul - Guaramirim/SC
+                        </p>
 
-                <!-- RODAPÉ -->
-                <div class="rodape">
+                        <p>
+                            Brandt Estética Automotiva
+                        </p>
 
-                    <p>
-                        📞 WhatsApp: (47) 99143-5665
-                    </p>
-
-                    <p>
-                        📍 Bananal do Sul - Guaramirim/SC
-                    </p>
-
-                    <p>
-                        Brandt Estética Automotiva
-                    </p>
+                    </div>
 
                 </div>
 
@@ -145,9 +154,7 @@
 
         </div>
 
-    </div>
-
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 
 </body>
 

@@ -513,3 +513,17 @@ button:hover {
     cursor: pointer;
 
 }
+
+.botoes-servico {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+.botoes-servico button {
+
+    flex: 1;
+
+}
