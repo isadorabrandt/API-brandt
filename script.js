@@ -2,8 +2,6 @@
    01 - CONFIGURAÇÕES GERAIS
 ========================================== */
 
-alert("SCRIPT CARREGOU");
-
 const servicos = [
     {
         nome: "Estética de Manutenção",
@@ -260,6 +258,9 @@ function toggleGerenciarServicos() {
     }
 
 }
+
+window.toggleGerenciarServicos =
+    toggleGerenciarServicos;
 
 function renderizarGerenciadorServicos() {
 
