@@ -36,11 +36,12 @@ const servicosContainer =
         "servicos-container"
     );
 
+
 /* ==========================================
    03 - CRIAÇÃO DOS SERVIÇOS
 ========================================== */
 
-servicos.forEach((servico, index) => {
+function criarServicoNaTela(servico, index) {
 
     servicosContainer.innerHTML += `
 
@@ -66,123 +67,44 @@ servicos.forEach((servico, index) => {
 
     `;
 
-});
+}
 
-/* ======== ADICIONAR SERVIÇO PERSONALIZADO ======== */
+function carregarServicos() {
 
-function adicionarServicoPersonalizado(
-    salvarPermanentemente = false
-) {
+    servicosContainer.innerHTML = "";
 
-    const nome =
-        document.getElementById(
-            "novoServicoNome"
-        ).value.trim();
+    servicos.forEach((servico, index) => {
 
-    const valor =
-        Number(
-            document.getElementById(
-                "novoServicoValor"
-            ).value
+        criarServicoNaTela(
+            servico,
+            index
         );
 
-    if (!nome) {
-
-        alert(
-            "Informe o nome do serviço."
-        );
-
-        return;
-
-    }
-
-    const novoServico = {
-
-        nome,
-
-        valor
-
-    };
-
-    const index =
-        servicos.length;
-
-    servicos.push(
-        novoServico
-    );
-
-    if (salvarPermanentemente) {
-
-        const servicosSalvos =
-            JSON.parse(
-                localStorage.getItem(
-                    "servicosPersonalizados"
-                )
-            ) || [];
-
-        servicosSalvos.push(
-            novoServico
-        );
-
-        localStorage.setItem(
-            "servicosPersonalizados",
-            JSON.stringify(
-                servicosSalvos
-            )
-        );
-
-    }
-
-    servicosContainer.innerHTML += `
-
-        <div class="servico-item">
-
-            <input
-                type="checkbox"
-                id="check${index}"
-                checked
-            >
-
-            <span>
-                ${nome}
-            </span>
-
-            <input
-                type="number"
-                id="valor${index}"
-                value="${valor}"
-                min="0"
-            >
-
-        </div>
-
-    `;
-
-    document.getElementById(
-        `check${index}`
-    ).addEventListener(
-        "change",
-        gerarPreview
-    );
-
-    document.getElementById(
-        `valor${index}`
-    ).addEventListener(
-        "input",
-        gerarPreview
-    );
-
-    document.getElementById(
-        "novoServicoNome"
-    ).value = "";
-
-    document.getElementById(
-        "novoServicoValor"
-    ).value = "";
-
-    gerarPreview();
+    });
 
 }
+
+/* ==========================================
+   03.1 - SERVIÇOS SALVOS
+========================================== */
+
+function carregarServicosSalvos() {
+
+    const servicosSalvos =
+        JSON.parse(
+            localStorage.getItem(
+                "servicosPersonalizados"
+            )
+        ) || [];
+
+    servicosSalvos.forEach(servico => {
+
+        servicos.push(servico);
+
+    });
+
+}
+
 
 /* ==========================================
    04 - DATA
@@ -763,9 +685,13 @@ window.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        atualizarData();
+        carregarServicosSalvos();
+
+        carregarServicos();
 
         registrarEventosServicos();
+
+        atualizarData();
 
         gerarPreview();
 
