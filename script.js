@@ -87,7 +87,6 @@ function carregarServicos() {
 /* ==========================================
    03.1 - SERVIÇOS SALVOS
 ========================================== */
-
 function carregarServicosSalvos() {
 
     const servicosSalvos =
@@ -99,13 +98,13 @@ function carregarServicosSalvos() {
 
     servicosSalvos.forEach(servicoSalvo => {
 
-        const jaExiste =
-            servicos.some(servico =>
-                servico.nome ===
-                servicoSalvo.nome
+        const existe =
+            servicos.some(
+                servico =>
+                servico.nome === servicoSalvo.nome
             );
 
-        if (!jaExiste) {
+        if (!existe) {
 
             servicos.push(
                 servicoSalvo
@@ -139,11 +138,6 @@ function atualizarData() {
 
 function gerarPreview() {
 
-    setTimeout(() => {
-
-        gerarPreview();
-
-    }, 100);
 
     const cliente =
         document.getElementById("cliente").value;
@@ -175,49 +169,6 @@ function gerarPreview() {
 
     servicos.forEach((servico, index) => {
 
-        const servicosSalvos =
-            JSON.parse(
-                localStorage.getItem(
-                    "servicosPersonalizados"
-                )
-            ) || [];
-
-        servicosSalvos.forEach(
-            servico => {
-
-                const index =
-                    servicos.length;
-
-                servicos.push(
-                    servico
-                );
-
-                servicosContainer.innerHTML += `
-
-            <div class="servico-item">
-
-                <input
-                    type="checkbox"
-                    id="check${index}"
-                >
-
-                <span>
-                    ${servico.nome}
-                </span>
-
-                <input
-                    type="number"
-                    id="valor${index}"
-                    value="${servico.valor}"
-                    min="0"
-                >
-
-            </div>
-
-        `;
-
-            }
-        );
 
         const marcado =
             document.getElementById(
@@ -704,7 +655,6 @@ function baixarPNG() {
 /* ==========================================
    12 - INICIALIZAÇÃO
 ========================================== */
-
 window.addEventListener(
     "DOMContentLoaded",
     () => {
