@@ -43,6 +43,12 @@ const servicosContainer =
 
 function criarServicoNaTela(servico, index) {
 
+    console.log(
+        "CRIANDO SERVIÇO:",
+        index,
+        servico.nome
+    );
+
     servicosContainer.innerHTML += `
 
         <div class="servico-item">
@@ -66,10 +72,11 @@ function criarServicoNaTela(servico, index) {
         </div>
 
     `;
-
 }
 
 function carregarServicos() {
+
+    console.log("CARREGANDO SERVIÇOS");
 
     servicosContainer.innerHTML = "";
 
