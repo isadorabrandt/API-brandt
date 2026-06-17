@@ -43,35 +43,34 @@ const servicosContainer =
 
 function criarServicoNaTela(servico, index) {
 
-    console.log(
-        "CRIANDO SERVIÇO:",
-        index,
-        servico.nome
-    );
+    const div =
+        document.createElement("div");
 
-    servicosContainer.innerHTML += `
+    div.className =
+        "servico-item";
 
-        <div class="servico-item">
+    div.innerHTML = `
 
-            <input
-                type="checkbox"
-                id="check${index}"
-            >
+        <input
+            type="checkbox"
+            id="check${index}"
+        >
 
-            <span>
-                ${servico.nome}
-            </span>
+        <span>
+            ${servico.nome}
+        </span>
 
-            <input
-                type="number"
-                id="valor${index}"
-                value="${servico.valor}"
-                min="0"
-            >
-
-        </div>
+        <input
+            type="number"
+            id="valor${index}"
+            value="${servico.valor}"
+            min="0"
+        >
 
     `;
+
+    servicosContainer.appendChild(div);
+
 }
 
 function carregarServicos() {
@@ -204,6 +203,20 @@ function adicionarServicoPersonalizado(
     criarServicoNaTela(
         novoServico,
         index
+    );
+
+    document.getElementById(
+        `check${index}`
+    ).addEventListener(
+        "change",
+        gerarPreview
+    );
+
+    document.getElementById(
+        `valor${index}`
+    ).addEventListener(
+        "input",
+        gerarPreview
     );
 
     document.getElementById(
@@ -407,7 +420,6 @@ function atualizarData() {
 
 function gerarPreview() {
 
-    console.clear();
 
     let total = 0;
     let html = "";
@@ -427,28 +439,12 @@ function gerarPreview() {
             campoValor
         );
 
-        if (!checkbox || !campoValor) {
-
-            console.error(
-                "Elemento não encontrado:",
-                index
-            );
-
-            return;
-        }
 
         const marcado =
             checkbox.checked;
 
         const valor =
             Number(campoValor.value);
-
-        console.log({
-            index,
-            nome: servico.nome,
-            marcado,
-            valor
-        });
 
         if (marcado) {
 
@@ -471,16 +467,11 @@ function gerarPreview() {
         </div>
     `;
 
-            console.log(
-                "HTML ATUAL:",
-                html
-            );
-        }
+    
+    }
 
     });
 
-    console.log("HTML FINAL:");
-    console.log(html);
 
     document.getElementById(
         "listaServicos"
