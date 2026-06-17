@@ -101,7 +101,7 @@ function carregarServicosSalvos() {
         const existe =
             servicos.some(
                 servico =>
-                servico.nome === servicoSalvo.nome
+                    servico.nome === servicoSalvo.nome
             );
 
         if (!existe) {
@@ -166,8 +166,8 @@ function adicionarServicoPersonalizado(
         const jaExiste =
             servicosSalvos.some(
                 servico =>
-                servico.nome.toLowerCase() ===
-                nome.toLowerCase()
+                    servico.nome.toLowerCase() ===
+                    nome.toLowerCase()
             );
 
         if (!jaExiste) {
@@ -266,7 +266,7 @@ function renderizarGerenciadorServicos() {
 
     const container =
         document.getElementById(
-            "gerenciarServicos"
+            "listaGerenciarServicos"
         );
 
     const servicosSalvos =
@@ -283,40 +283,25 @@ function renderizarGerenciadorServicos() {
 
             container.innerHTML += `
 
-                <div class="item-gerenciar">
+    <div class="item-gerenciar">
 
-                    <input
-                        class="nome"
-                        id="nomeServico${index}"
-                        value="${servico.nome}"
-                    >
+        <span>
 
-                    <input
-                        class="valor"
-                        type="number"
-                        id="valorServico${index}"
-                        value="${servico.valor}"
-                    >
+            ${servico.nome}
 
-                    <button
-                        class="btn-salvar-servico"
-                        onclick="editarServico(${index})">
+        </span>
 
-                        💾
+        <button
+            class="btn-remover-servico"
+            onclick="removerServico(${index})">
 
-                    </button>
+            🗑
 
-                    <button
-                        class="btn-remover-servico"
-                        onclick="removerServico(${index})">
+        </button>
 
-                        🗑
+    </div>
 
-                    </button>
-
-                </div>
-
-            `;
+`;
 
         });
 

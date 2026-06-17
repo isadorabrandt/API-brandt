@@ -532,15 +532,13 @@ button:hover {
    GERENCIAR SERVIÇOS
 ========================= */
 
-#gerenciarServicos{
-
-    display:none;
-
-    margin-top:10px;
+#listaGerenciarServicos{
 
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:8px;
+
+    margin-top:15px;
 }
 
 .item-gerenciar{
@@ -551,34 +549,31 @@ button:hover {
 
     border-radius:10px;
 
-    padding:10px;
+    padding:10px 12px;
 
     display:flex;
-    gap:8px;
+
+    justify-content:space-between;
+
     align-items:center;
 }
 
-.item-gerenciar input{
+.item-gerenciar span{
 
-    padding:8px;
-}
+    color:white;
 
-.item-gerenciar .nome{
-
-    flex:1;
-}
-
-.item-gerenciar .valor{
-
-    width:90px;
-}
-
-.btn-salvar-servico{
-
-    background:#16a34a;
+    font-size:14px;
 }
 
 .btn-remover-servico{
 
     background:#b91c1c;
+
+    padding:6px 10px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
 }

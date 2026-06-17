@@ -35,14 +35,19 @@
 
             <div id="servicos-container"></div>
 
-            <div class="servico-personalizado">
 
-                <h4>Adicionar Serviço</h4>
+            <button type="button" onclick="toggleGerenciarServicos()">
+
+                ⚙ Gerenciar Serviços
+
+            </button>
+
+            <div id="gerenciarServicos" style="display:none;">
 
                 <input type="text" id="novoServicoNome" placeholder="Nome do serviço">
 
                 <input type="number" id="novoServicoValor" placeholder="Valor">
-                
+
                 <div class="botoes-servico">
 
                     <button type="button" onclick="adicionarServicoPersonalizado(false)">
@@ -53,26 +58,13 @@
 
                     <button type="button" onclick="adicionarServicoPersonalizado(true)">
 
-                        💾 Salvar Serviço
+                        💾 Salvar
 
                     </button>
 
                 </div>
 
-                <button type="button" onclick="toggleGerenciarServicos()">
-
-                    ⚙ Gerenciar Serviços
-                    
-                </button>
-
-                <div id="gerenciarServicos"></div>
-                <button onclick="baixarPNG()">
-                    Baixar PNG
-                </button>
-
-                <h3>Histórico</h3>
-
-                <div id="historico"></div>
+                <div id="listaGerenciarServicos"></div>
 
             </div>
 
@@ -141,6 +133,10 @@
 
                     <!-- RODAPÉ -->
                     <div class="rodape">
+
+                        <p>
+                            Orçamento válido por 10 dias.
+                        </p>
 
                         <p>
                             📞 WhatsApp: (47) 99143-5665
