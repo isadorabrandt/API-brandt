@@ -232,6 +232,43 @@ button:hover {
     color: var(--laranja);
 }
 
+.servico-item {
+
+    display:grid;
+
+    grid-template-columns:
+        20px
+        1fr
+        35px
+        35px
+        90px;
+
+    gap:10px;
+
+    align-items:center;
+}
+
+.btn-remover-servico,
+.btn-favorito {
+
+    width:30px;
+    height:30px;
+
+    padding:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+}
+
+.oculto {
+
+    display:none !important;
+}
+
 /* =========================
    TOTAL
 ========================= */

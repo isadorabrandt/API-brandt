@@ -26,6 +26,7 @@ const servicos = [
 ];
 
 let orcamentoEmEdicao = null;
+let modoGerenciar = false;
 
 /* ==========================================
    02 - ELEMENTOS
@@ -43,34 +44,47 @@ const servicosContainer =
 
 function criarServicoNaTela(servico, index) {
 
-    const div =
-        document.createElement("div");
+    const permanente =
+        servico.permanente === true;
 
-    div.className =
-        "servico-item";
+    servicosContainer.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div class="servico-item">
 
-    div.innerHTML = `
+            <input
+                type="checkbox"
+                id="check${index}"
+            >
 
-        <input
-            type="checkbox"
-            id="check${index}"
-        >
+            <span>
+                ${servico.nome}
+            </span>
 
-        <span>
-            ${servico.nome}
-        </span>
+            <button
+                class="btn-favorito ${permanente ? '' : 'oculto'}"
+                title="Serviço salvo"
+            >
+                🔖
+            </button>
 
-        <input
-            type="number"
-            id="valor${index}"
-            value="${servico.valor}"
-            min="0"
-        >
+            <button
+                class="btn-remover-servico oculto"
+                onclick="removerServicoTela(${index})"
+            >
+                🗑
+            </button>
 
-    `;
+            <input
+                type="number"
+                id="valor${index}"
+                value="${servico.valor}"
+                min="0"
+            >
 
-    servicosContainer.appendChild(div);
-
+        </div>
+        `
+    );
 }
 
 function carregarServicos() {
@@ -112,9 +126,10 @@ function carregarServicosSalvos() {
 
         if (!existe) {
 
-            servicos.push(
-                servicoSalvo
-            );
+            servicos.push({
+                ...servicoSalvo,
+                permanente: true
+            });
 
         }
 
@@ -153,11 +168,10 @@ function adicionarServicoPersonalizado(
     }
 
     const novoServico = {
-
         nome,
-
-        valor
-
+        valor,
+        permanente:
+            salvarPermanentemente
     };
 
     if (salvarPermanentemente) {
@@ -255,28 +269,21 @@ function adicionarServicoPersonalizado(
 
 function toggleGerenciarServicos() {
 
-    const container =
-        document.getElementById(
-            "gerenciarServicos"
-        );
+    modoGerenciar =
+        !modoGerenciar;
 
-    const visivel =
-        getComputedStyle(container)
-            .display !== "none";
+    document
+        .querySelectorAll(
+            ".btn-remover-servico"
+        )
+        .forEach(btn => {
 
-    if (visivel) {
+            btn.classList.toggle(
+                "oculto",
+                !modoGerenciar
+            );
 
-        container.style.display =
-            "none";
-
-    } else {
-
-        container.style.display =
-            "block";
-
-        renderizarGerenciadorServicos();
-
-    }
+        });
 
 }
 
@@ -400,6 +407,49 @@ function removerServico(index) {
 
 
 /* ==========================================
+   03.7 - REMOVER SERVIÇO DA TELA
+========================================== */
+
+function removerServicoTela(index) {
+
+    if (
+        !confirm(
+            "Excluir este serviço?"
+        )
+    ) return;
+
+    const servico =
+        servicos[index];
+
+    servicos.splice(index, 1);
+
+    let salvos =
+        JSON.parse(
+            localStorage.getItem(
+                "servicosPersonalizados"
+            )
+        ) || [];
+
+    salvos =
+        salvos.filter(
+            s => s.nome !== servico.nome
+        );
+
+    localStorage.setItem(
+        "servicosPersonalizados",
+        JSON.stringify(salvos)
+    );
+
+    carregarServicos();
+
+    registrarEventosServicos();
+
+    gerarPreview();
+
+}
+
+
+/* ==========================================
    04 - DATA
 ========================================== */
 
@@ -467,8 +517,8 @@ function gerarPreview() {
         </div>
     `;
 
-    
-    }
+
+        }
 
     });
 
