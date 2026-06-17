@@ -400,64 +400,48 @@ function atualizarData() {
 
 function gerarPreview() {
 
-
-    const cliente =
-        document.getElementById("cliente").value;
-
-    const veiculo =
-        document.getElementById("veiculo").value;
-
-    const observacoes =
-        document.getElementById("observacoes").value;
-
-    document.getElementById(
-        "previewCliente"
-    ).textContent =
-        cliente || "---";
-
-    document.getElementById(
-        "previewVeiculo"
-    ).textContent =
-        veiculo || "---";
-
-    document.getElementById(
-        "previewObservacoes"
-    ).textContent =
-        observacoes || "Nenhuma observação.";
+    console.clear();
 
     let total = 0;
-
     let html = "";
 
     servicos.forEach((servico, index) => {
 
+        const checkbox =
+            document.getElementById(`check${index}`);
+
+        const campoValor =
+            document.getElementById(`valor${index}`);
+
         console.log(
             index,
             servico.nome,
-            document.getElementById(`check${index}`)
+            checkbox,
+            campoValor
         );
 
+        if (!checkbox || !campoValor) {
+
+            console.error(
+                "Elemento não encontrado:",
+                index
+            );
+
+            return;
+        }
 
         const marcado =
-            document.getElementById(
-                `check${index}`
-            ).checked;
+            checkbox.checked;
 
         const valor =
-            Number(
-                document.getElementById(
-                    `valor${index}`
-                ).value
-            );
+            Number(campoValor.value);
 
         if (marcado) {
 
             total += valor;
 
             html += `
-
                 <div class="servico-card">
-
                     <span class="nome">
                         ${servico.nome}
                     </span>
@@ -465,11 +449,8 @@ function gerarPreview() {
                     <span class="valor">
                         R$ ${valor.toFixed(2)}
                     </span>
-
                 </div>
-
             `;
-
         }
 
     });
@@ -482,7 +463,6 @@ function gerarPreview() {
         "valorTotal"
     ).textContent =
         `R$ ${total.toFixed(2)}`;
-
 }
 
 /* ==========================================
