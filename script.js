@@ -445,19 +445,29 @@ function gerarPreview() {
 
         if (marcado) {
 
+            console.log(
+                "ADICIONANDO:",
+                servico.nome
+            );
+
             total += valor;
 
             html += `
-                <div class="servico-card">
-                    <span class="nome">
-                        ${servico.nome}
-                    </span>
+        <div class="servico-card">
+            <span class="nome">
+                ${servico.nome}
+            </span>
 
-                    <span class="valor">
-                        R$ ${valor.toFixed(2)}
-                    </span>
-                </div>
-            `;
+            <span class="valor">
+                R$ ${valor.toFixed(2)}
+            </span>
+        </div>
+    `;
+
+            console.log(
+                "HTML ATUAL:",
+                html
+            );
         }
 
     });
