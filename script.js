@@ -240,24 +240,30 @@ function toggleGerenciarServicos() {
             "gerenciarServicos"
         );
 
-    if (
-        container.style.display ===
-        "none"
-    ) {
+    const visivel =
+        getComputedStyle(container)
+        .display !== "none";
 
-        container.style.display =
-            "flex";
-
-        renderizarGerenciadorServicos();
-
-    } else {
+    if (visivel) {
 
         container.style.display =
             "none";
 
+    } else {
+
+        container.style.display =
+            "block";
+
+        renderizarGerenciadorServicos();
+
     }
 
 }
+
+/* ==========================================
+    03.6 - RENDERIZAR GERENCIADOR DE SERVIÇOS
+========================================== */
+
 
 window.toggleGerenciarServicos =
     toggleGerenciarServicos;
