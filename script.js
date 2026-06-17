@@ -436,6 +436,13 @@ function gerarPreview() {
         const valor =
             Number(campoValor.value);
 
+        console.log({
+            index,
+            nome: servico.nome,
+            marcado,
+            valor
+        });
+
         if (marcado) {
 
             total += valor;
@@ -454,6 +461,9 @@ function gerarPreview() {
         }
 
     });
+
+    console.log("HTML FINAL:");
+    console.log(html);
 
     document.getElementById(
         "listaServicos"
