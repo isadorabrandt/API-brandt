@@ -242,7 +242,7 @@ function toggleGerenciarServicos() {
 
     const visivel =
         getComputedStyle(container)
-        .display !== "none";
+            .display !== "none";
 
     if (visivel) {
 
@@ -430,6 +430,12 @@ function gerarPreview() {
     let html = "";
 
     servicos.forEach((servico, index) => {
+
+        console.log(
+            index,
+            servico.nome,
+            document.getElementById(`check${index}`)
+        );
 
 
         const marcado =
