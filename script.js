@@ -50,40 +50,34 @@ function criarServicoNaTela(servico, index) {
     servicosContainer.insertAdjacentHTML(
         "beforeend",
         `
-        <div class="servico-item">
+    <div class="servico-item">
 
-            <input
-                type="checkbox"
-                id="check${index}"
-            >
+        <input
+            type="checkbox"
+            id="check${index}"
+        >
 
-            <span>
-                ${servico.nome}
-            </span>
+        <span>
+            ${servico.nome}
+        </span>
 
-            <button
-                class="btn-favorito ${permanente ? '' : 'oculto'}"
-                title="Serviço salvo"
-            >
-                🔖
-            </button>
+        <button
+            class="btn-remover-servico"
+            onclick="removerServicoTela(${index})"
+            style="display:none"
+        >
+            🗑
+        </button>
 
-            <button
-                class="btn-remover-servico oculto"
-                onclick="removerServicoTela(${index})"
-            >
-                🗑
-            </button>
+        <input
+            type="number"
+            id="valor${index}"
+            value="${servico.valor}"
+            min="0"
+        >
 
-            <input
-                type="number"
-                id="valor${index}"
-                value="${servico.valor}"
-                min="0"
-            >
-
-        </div>
-        `
+    </div>
+`
     );
 }
 
@@ -267,6 +261,8 @@ function adicionarServicoPersonalizado(
    03.5 - GERENCIAR SERVIÇOS
 ========================================== */
 
+let modoGerenciar = false;
+
 function toggleGerenciarServicos() {
 
     modoGerenciar =
@@ -278,10 +274,10 @@ function toggleGerenciarServicos() {
         )
         .forEach(btn => {
 
-            btn.classList.toggle(
-                "oculto",
-                !modoGerenciar
-            );
+            btn.style.display =
+                modoGerenciar
+                    ? "flex"
+                    : "none";
 
         });
 
@@ -446,6 +442,33 @@ function removerServicoTela(index) {
 
     gerarPreview();
 
+}
+
+/* ==========================================
+   03.8 - ATALHO SERVIÇO PERSONALIZADO
+========================================== */
+
+
+document
+    .getElementById(
+        "atalhoNovoServico"
+    )
+    .addEventListener(
+        "click",
+        toggleNovoServico
+    );
+
+function toggleNovoServico() {
+
+    const painel =
+        document.getElementById(
+            "painelNovoServico"
+        );
+
+    painel.style.display =
+        painel.style.display === "flex"
+            ? "none"
+            : "flex";
 }
 
 

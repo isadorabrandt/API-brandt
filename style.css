@@ -239,8 +239,7 @@ button:hover {
     grid-template-columns:
         20px
         1fr
-        35px
-        35px
+        40px
         90px;
 
     gap:10px;
@@ -613,4 +612,48 @@ button:hover {
     border-radius:6px;
 
     cursor:pointer;
+}
+
+#atalhoNovoServico {
+
+    margin-top: 15px;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    padding: 10px;
+
+    transition: .2s;
+}
+
+#atalhoNovoServico:hover {
+
+    color: var(--laranja);
+
+}
+
+#painelNovoServico {
+
+    display: none;
+
+    margin-top: 10px;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.botoes-novo-servico {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.botoes-novo-servico button {
+
+    flex: 1;
 }

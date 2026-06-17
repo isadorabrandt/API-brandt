@@ -35,6 +35,32 @@
 
             <div id="servicos-container"></div>
 
+            <div id="atalhoNovoServico">
+
+                ➕ Adicionar serviço personalizado...
+
+            </div>
+
+            <div id="painelNovoServico">
+
+                <input type="text" id="novoServicoNome" placeholder="Nome do serviço">
+
+                <input type="number" id="novoServicoValor" placeholder="Valor">
+
+                <div class="botoes-novo-servico">
+
+                    <button onclick="adicionarServicoPersonalizado(false)">
+                        Adicionar
+                    </button>
+
+                    <button onclick="adicionarServicoPersonalizado(true)">
+                        💾 Salvar
+                    </button>
+
+                </div>
+
+            </div>
+
 
             <button type="button" onclick="toggleGerenciarServicos()">
 
@@ -68,99 +94,97 @@
 
             </div>
 
-             <button onclick="baixarPNG()">
-                    Baixar PNG
-                </button>
+            <button onclick="baixarPNG()">
+                Baixar PNG
+            </button>
 
-                <h3>Histórico</h3>
+            <h3>Histórico</h3>
 
-                <div id="historico"></div>
+            <div id="historico"></div>
 
-            </div>
+        </div>
 
-            <!-- PRÉ-VISUALIZAÇÃO -->
-            <div class="preview-area">
+        <!-- PRÉ-VISUALIZAÇÃO -->
+        <div class="preview-area">
 
-                <div id="orcamento">
+            <div id="orcamento">
 
-                    <!-- TOPO -->
-                    <div class="topo">
+                <!-- TOPO -->
+                <div class="topo">
 
-                        <img src="logobrandt.png" alt="Brandt" class="logo">
+                    <img src="logobrandt.png" alt="Brandt" class="logo">
 
-                        <h1 class=" titulo-orcamento ">
-                            ORÇAMENTO
-                        </h1>
+                    <h1 class=" titulo-orcamento ">
+                        ORÇAMENTO
+                    </h1>
 
+                </div>
+
+                <!-- DADOS CLIENTE -->
+                <div class="dados-cliente">
+
+                    <div>
+                        <strong>Cliente</strong>
+                        <p id="previewCliente">---</p>
                     </div>
 
-                    <!-- DADOS CLIENTE -->
-                    <div class="dados-cliente">
-
-                        <div>
-                            <strong>Cliente</strong>
-                            <p id="previewCliente">---</p>
-                        </div>
-
-                        <div>
-                            <strong>Veículo</strong>
-                            <p id="previewVeiculo">---</p>
-                        </div>
-
-                        <div>
-                            <strong>Data</strong>
-                            <p id="previewData">--/--/----</p>
-                        </div>
-
+                    <div>
+                        <strong>Veículo</strong>
+                        <p id="previewVeiculo">---</p>
                     </div>
 
-                    <!-- SERVIÇOS -->
-                    <div id="listaServicos">
-
+                    <div>
+                        <strong>Data</strong>
+                        <p id="previewData">--/--/----</p>
                     </div>
 
-                    <!-- TOTAL -->
-                    <div class="total-box">
+                </div>
 
-                        <span>TOTAL</span>
+                <!-- SERVIÇOS -->
+                <div id="listaServicos">
 
-                        <span id="valorTotal">
-                            R$ 0,00
-                        </span>
+                </div>
 
-                    </div>
+                <!-- TOTAL -->
+                <div class="total-box">
 
-                    <!-- OBSERVAÇÕES -->
-                    <div class="observacoes">
+                    <span>TOTAL</span>
 
-                        <h3>Observações</h3>
+                    <span id="valorTotal">
+                        R$ 0,00
+                    </span>
 
-                        <p id="previewObservacoes">
-                            Nenhuma observação.
-                        </p>
+                </div>
 
-                    </div>
+                <!-- OBSERVAÇÕES -->
+                <div class="observacoes">
 
-                    <!-- RODAPÉ -->
-                    <div class="rodape">
+                    <h3>Observações</h3>
 
-                        <p>
-                            Orçamento válido por 10 dias.
-                        </p>
+                    <p id="previewObservacoes">
+                        Nenhuma observação.
+                    </p>
 
-                        <p>
-                            📞 WhatsApp: (47) 99143-5665
-                        </p>
+                </div>
 
-                        <p>
-                            📍 Bananal do Sul - Guaramirim/SC
-                        </p>
+                <!-- RODAPÉ -->
+                <div class="rodape">
 
-                        <p>
-                            Brandt Estética Automotiva
-                        </p>
+                    <p>
+                        Orçamento válido por 10 dias.
+                    </p>
 
-                    </div>
+                    <p>
+                        📞 WhatsApp: (47) 99143-5665
+                    </p>
+
+                    <p>
+                        📍 Bananal do Sul - Guaramirim/SC
+                    </p>
+
+                    <p>
+                        Brandt Estética Automotiva
+                    </p>
 
                 </div>
 
@@ -168,7 +192,9 @@
 
         </div>
 
-        <script src="script.js"></script>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 
